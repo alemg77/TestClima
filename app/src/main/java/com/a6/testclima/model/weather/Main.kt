@@ -1,4 +1,4 @@
-package com.a6.testclima.model.autogenerados
+package com.a6.testclima.model.weather
 
 
 import com.google.gson.annotations.SerializedName

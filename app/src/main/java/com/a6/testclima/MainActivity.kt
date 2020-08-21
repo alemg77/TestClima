@@ -7,6 +7,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+const val ciudadBuenosAires: String = "Buenos Aires, AR"
+const val ciudadSantaFe: String = "Santa Fe, AR"
+const val ciudadCordoba: String = "Córdoba, AR"
+const val ciudadParana: String = "Paraná, AR"
+const val ciudadNeuquen: String = "Neuquén, AR"
+const val ciudadMarDelPlata: String = "Mar del Plata, AR"
+
+
 class MainActivity : AppCompatActivity() {
 
     private val TAG = javaClass.toString()
@@ -25,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val apiService = ApiWebDatosClima()
         GlobalScope.launch(Dispatchers.Main) {
-            val algo = apiService.getClimaActual("London,UK").await()
+            val algo = apiService.getForecast(ciudadMarDelPlata).await()
             Log.d(TAG, algo.toString())
             Log.d(TAG, "Que paso?")
         }

@@ -1,7 +1,7 @@
 package com.a6.testclima
 
-import com.a6.testclima.data.network.ConnectivityInterceptor
-import com.a6.testclima.model.RespuestaApiClima
+import com.a6.testclima.model.forecast.Forecast
+import com.a6.testclima.model.weather.RespuestaApiClima
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -21,6 +21,7 @@ const val API_KEY: String = "aecba27d28f5e7e81724d328fbebbf98"
 /*
  Ejemplo de uso:
  https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=aecba27d28f5e7e81724d328fbebbf98
+ https://api.openweathermap.org/data/2.5/forecast?q=London,uk&appid=aecba27d28f5e7e81724d328fbebbf98
  */
 
 
@@ -31,9 +32,13 @@ interface ApiWebDatosClima {
         @Query("q") location: String
     ): Deferred<RespuestaApiClima> // La respuesta es asincronica.
 
+    @GET("data/2.5/forecast")
+    fun getForecast(
+        @Query("q") location: String
+    ): Deferred<Forecast>
+
     companion object {
         operator fun invoke(): ApiWebDatosClima {
-
             // Creo un interceptor para agregar la KEY
             val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()

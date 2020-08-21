@@ -1,6 +1,4 @@
-package com.a6.testclima.model
-
-import com.a6.testclima.model.autogenerados.*
+package com.a6.testclima.model.weather
 
 
 data class RespuestaApiClima(
