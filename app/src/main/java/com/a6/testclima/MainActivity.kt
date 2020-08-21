@@ -3,9 +3,11 @@ package com.a6.testclima
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.a6.testclima.datos.ApiWebDatosClima
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import com.a6.testclima.datos.ConnectivityStatus
 
 const val ciudadBuenosAires: String = "Buenos Aires, AR"
 const val ciudadSantaFe: String = "Santa Fe, AR"
@@ -25,10 +27,14 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(TAG, "Inicio del programa")
 
-        //
-        // Esto es solo un ensayo para verificar el funcionamiento
-        // NUNCA JAMAS HARIA ESTO EN UNA VERSION FINAL
-        //
+
+
+        if ( ConnectivityStatus(this) ){
+            Log.d(TAG, "Tenemos Internet")
+        } else {
+            Log.d(TAG, "NO TENEMOS INTERNET")
+        }
+
 
 
         val apiService = ApiWebDatosClima()
