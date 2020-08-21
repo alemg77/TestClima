@@ -1,5 +1,6 @@
-package com.a6.testclima.data
+package com.a6.testclima
 
+import com.a6.testclima.data.network.ConnectivityInterceptor
 import com.a6.testclima.model.RespuestaApiClima
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -13,19 +14,17 @@ import retrofit2.http.Query
 // Interface para traer los datos de la API con retrofit.
 
 
-const val API_URL = "https://api.openweathermap.org/"
-const val API_KEY_NAME = "APPID"
-const val API_KEY = "aecba27d28f5e7e81724d328fbebbf98"
-
+const val BASE_URL: String = "http://api.openweathermap.org"
+const val API_KEY_NAME: String = "APPID"
+const val API_KEY: String = "aecba27d28f5e7e81724d328fbebbf98"
 
 /*
  Ejemplo de uso:
- http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=aecba27d28f5e7e81724d328fbebbf98
+ https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=aecba27d28f5e7e81724d328fbebbf98
  */
 
 
 interface ApiWebDatosClima {
-
 
     @GET("data/2.5/weather")
     fun getClimaActual(
@@ -33,13 +32,12 @@ interface ApiWebDatosClima {
     ): Deferred<RespuestaApiClima> // La respuesta es asincronica.
 
     companion object {
-
-        // Se encarga de atrapar y modificar todos los envios que entran y salen
         operator fun invoke(): ApiWebDatosClima {
-            val requestInterceptor = Interceptor { chain ->
 
+            // Creo un interceptor para agregar la KEY
+            val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
-                    .url()
+                    .url
                     .newBuilder()
                     .addQueryParameter(API_KEY_NAME, API_KEY)
                     .build()
@@ -51,17 +49,21 @@ interface ApiWebDatosClima {
                 return@Interceptor chain.proceed(request)
             }
 
+            // Preparo el cliente OkHttp
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                //     .addInterceptor(connectivityInterceptor)
                 .build()
 
+            // Preparo retrofit.
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(API_URL)
+                .baseUrl(BASE_URL)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiWebDatosClima::class.java)
         }
     }
+
 }
