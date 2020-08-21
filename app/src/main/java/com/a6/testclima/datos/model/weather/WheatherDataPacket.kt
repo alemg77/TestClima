@@ -1,7 +1,7 @@
 package com.a6.testclima.datos.model.weather
 
 
-data class RespuestaApiClima(
+data class WheatherDataPacket(
     val base: String,
     val clouds: Clouds,
     val cod: Int,

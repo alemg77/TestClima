@@ -3,11 +3,13 @@ package com.a6.testclima
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.a6.testclima.datos.ApiWebDatosClima
+import androidx.lifecycle.Observer
+import com.a6.testclima.datos.APIdataImpl
+import com.a6.testclima.datos.ConnectivityStatus
+import com.a6.testclima.datos.RetrofitInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import com.a6.testclima.datos.ConnectivityStatus
 
 const val ciudadBuenosAires: String = "Buenos Aires, AR"
 const val ciudadSantaFe: String = "Santa Fe, AR"
@@ -36,13 +38,16 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        val retrofitInterface = RetrofitInterface()
+        var apiData = APIdataImpl(retrofitInterface)
 
-        val apiService = ApiWebDatosClima()
-        GlobalScope.launch(Dispatchers.Main) {
-            val algo = apiService.getForecast(ciudadMarDelPlata).await()
-            Log.d(TAG, algo.toString())
+        apiData.dataForecast.observe(this, Observer {
+            Log.d(TAG, it.toString())
             Log.d(TAG, "Que paso?")
-        }
+        })
 
+        GlobalScope.launch(Dispatchers.Main) {
+            apiData.fetchForecast(ciudadMarDelPlata)
+        }
     }
 }

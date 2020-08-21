@@ -1,7 +1,7 @@
 package com.a6.testclima.datos
 
-import com.a6.testclima.datos.model.forecast.Forecast
-import com.a6.testclima.datos.model.weather.RespuestaApiClima
+import com.a6.testclima.datos.model.forecast.ForecastDataPacket
+import com.a6.testclima.datos.model.weather.WheatherDataPacket
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -18,22 +18,22 @@ const val BASE_URL: String = "http://api.openweathermap.org"
 const val API_KEY_NAME: String = "APPID"
 const val API_KEY: String = "aecba27d28f5e7e81724d328fbebbf98"
 
-interface ApiWebDatosClima {
+interface RetrofitInterface {
 
     @GET("data/2.5/weather")
     fun getClimaActual(
         @Query("q") location: String,
         @Query( "lang") languageCode: String = "sp",
         @Query( "units") units: String = "metric"
-    ): Deferred<RespuestaApiClima> // La respuesta es asincronica.
+    ): Deferred<WheatherDataPacket> // La respuesta es asincronica.
 
     @GET("data/2.5/forecast")
     fun getForecast(
         @Query("q") location: String
-    ): Deferred<Forecast>
+    ): Deferred<ForecastDataPacket>
 
     companion object {
-        operator fun invoke( ): ApiWebDatosClima {
+        operator fun invoke( ): RetrofitInterface {
             // Creo un interceptor para agregar la KEY
             val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
@@ -62,7 +62,7 @@ interface ApiWebDatosClima {
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiWebDatosClima::class.java)
+                .create(RetrofitInterface::class.java)
         }
     }
 
