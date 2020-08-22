@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 
 import com.a6.testclima.datos.WheatherViewModel
+import com.a6.testclima.datos.WheatherViewModelFactory
 import com.a6.testclima.datos.network.APIdataImpl
 import com.a6.testclima.datos.network.RetrofitInterface
 import com.a6.testclima.utils.ConnectivityStatus
@@ -27,8 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = javaClass.toString()
 
-    private val model: WheatherViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,20 +40,16 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "NO TENEMOS INTERNET")
         }
 
-        val wheatherViewModel: WheatherViewModel by viewModels()
+        val wheatherViewModelFactory = WheatherViewModelFactory(ciudadMarDelPlata)
+        val wheatherViewModel: WheatherViewModel by viewModels() { wheatherViewModelFactory}
 
-        wheatherViewModel.ensayo.observe(this, {
-            Log.d(TAG, "??")
+        val testEnsayo = wheatherViewModel.testEnsayo()
+
+        testEnsayo.observe(this, Observer {
+            Log.d(TAG, it.toString())
+            Log.d(TAG, "Que paso?")
         })
 
-        /*
-        wheatherViewModel.datos.observe(this, Observer {
-            Log.d(TAG, "??")
-        })
-
-        wheatherViewModel.testEnsayo()
-
-         */
 
         /*
         val retrofitInterface = RetrofitInterface()
