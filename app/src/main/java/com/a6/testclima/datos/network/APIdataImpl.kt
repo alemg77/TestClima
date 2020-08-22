@@ -1,10 +1,11 @@
-package com.a6.testclima.datos
+package com.a6.testclima.datos.network
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.a6.testclima.datos.model.forecast.ForecastDataPacket
 import com.a6.testclima.datos.model.weather.WheatherDataPacket
+import com.a6.testclima.datos.network.APIdata
+import com.a6.testclima.datos.network.RetrofitInterface
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

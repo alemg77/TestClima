@@ -1,4 +1,4 @@
-package com.a6.testclima.datos
+package com.a6.testclima.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

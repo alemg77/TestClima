@@ -1,4 +1,4 @@
-package com.a6.testclima.datos
+package com.a6.testclima.datos.network
 
 import com.a6.testclima.datos.model.forecast.ForecastDataPacket
 import com.a6.testclima.datos.model.weather.WheatherDataPacket
@@ -65,5 +65,4 @@ interface RetrofitInterface {
                 .create(RetrofitInterface::class.java)
         }
     }
-
 }

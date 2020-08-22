@@ -1,4 +1,4 @@
-package com.a6.testclima.datos
+package com.a6.testclima.datos.network
 
 import androidx.lifecycle.LiveData
 import com.a6.testclima.datos.model.forecast.ForecastDataPacket
