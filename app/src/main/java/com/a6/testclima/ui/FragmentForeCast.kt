@@ -2,10 +2,10 @@ package com.a6.testclima.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.a6.testclima.ciudadMarDelPlata
@@ -19,6 +19,8 @@ class FragmentForeCast : Fragment() {
     private var _binding: FragmentForeCastBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var city: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +29,18 @@ class FragmentForeCast : Fragment() {
         }
     }
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         _binding = FragmentForeCastBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val foreCastViewModelFactory = ForeCastViewModelFactory(ciudadMarDelPlata)
-        val foreCastViewModel: ForeCastViewModel by viewModels() { foreCastViewModelFactory}
+        // Busco el nombre de la ciudad que me pasaron
+        val bundle = arguments
+        val city: String = bundle!!.getSerializable(KEY_CITY) as String
+
+        binding.nombreCiudad.text = city
+
+        val foreCastViewModelFactory = ForeCastViewModelFactory(city)
+        val foreCastViewModel: ForeCastViewModel by viewModels() { foreCastViewModelFactory }
 
         foreCastViewModel.datos().observe(viewLifecycleOwner, Observer {
             Log.d(TAG, it.toString())
@@ -43,7 +51,7 @@ class FragmentForeCast : Fragment() {
 
 
     companion object {
-
+        val KEY_CITY = "NOMBRE DE LA CIUDAD"
     }
 
 }
