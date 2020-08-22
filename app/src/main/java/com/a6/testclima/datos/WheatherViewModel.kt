@@ -8,30 +8,28 @@ import com.a6.testclima.datos.network.RetrofitInterface
 import kotlinx.coroutines.launch
 
 
-class WheatherViewModel(city:String):ViewModel(){
+class WheatherViewModel(city: String) : ViewModel() {
+
+    private val TAG = javaClass.toString()
 
     companion object {
         val retrofitInterface = RetrofitInterface()
         val apiData = APIdataImpl(retrofitInterface)
     }
 
-    private val TAG = javaClass.toString()
-
-
     val datos: MutableLiveData<WheatherDataPacket> by lazy {
         MutableLiveData<WheatherDataPacket>()
     }
 
-    fun testEnsayo(): LiveData<WheatherDataPacket> {
-        return apiData.dataWheather
-    }
-
     init {
         Log.d(TAG, "Se inicio el View Model")
-
         viewModelScope.launch {
-            apiData.fetchForecast(city)
+            apiData.fetchWeather(city)
         }
+    }
+
+    fun datos(): LiveData<WheatherDataPacket> {
+        return apiData.dataWheather
     }
 
     override fun onCleared() {
