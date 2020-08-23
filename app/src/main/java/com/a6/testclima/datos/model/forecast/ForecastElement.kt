@@ -17,4 +17,7 @@ data class ForecastElement (
     val forecastVisibility: Int,
     @SerializedName("weather")
     val Weather: List<Weather>,
-)
+    @SerializedName("main")
+    val main: ForecastMain
+
+    )

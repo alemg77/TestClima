@@ -35,6 +35,10 @@ class ForeCastAdapter : RecyclerView.Adapter<ForeCastAdapter.PostsViewHolder>() 
         private var binding:CeldaForecastBinding = celdaListadoProductoBinding
 
         fun cargarCelda(position: Int) {
+
+            val temperatura = listForeCast[position].main.forecastTemp - 273
+            val stringTemperatura = String.format("%.1f", temperatura)
+            binding.celdaForecastTemperatura.text = "$stringTemperatura°C"
             binding.celdaForeCastText1.text = listForeCast[position].forecastDtTxt
             binding.celdaForeCastText2.text = listForeCast[position].Weather[0].forecastDescription
             val forecastIcon = listForeCast[position].Weather[0].forecastIcon

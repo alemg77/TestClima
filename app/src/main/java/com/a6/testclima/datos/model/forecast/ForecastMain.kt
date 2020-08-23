@@ -3,7 +3,7 @@ package com.a6.testclima.datos.model.forecast
 
 import com.google.gson.annotations.SerializedName
 
-data class Main(
+data class ForecastMain(
     @SerializedName("feels_like")
     val forecastFeelsLike: Double,
     @SerializedName("grnd_level")
