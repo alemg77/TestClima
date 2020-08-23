@@ -28,13 +28,18 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        setSupportActionBar(findViewById(R.id.MainActivityToolbar))
-
         Log.d(TAG, "Inicio del programa")
+
+        // Preparo el ToolBAR
+        val toolbar = binding.MainActivityToolbar.cabezeratool
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
 
         if (ConnectivityStatus(this)) {
             showFragmentForecast(ciudadMarDelPlata)
+            supportActionBar?.title = "Mar del Plata"
         } else {
+            supportActionBar?.title = "Sin Internet"
             Snackbar.make(binding.root, "No hay internet", Snackbar.LENGTH_INDEFINITE).show()
             Log.d(TAG, "NO TENEMOS INTERNET")
         }
@@ -51,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.tool_bar_menu, menu);
         return true;
@@ -59,36 +63,48 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.toolbar_caba -> { showFragmentForecast(ciudadBuenosAires) }
-            R.id.toolbar_mar_del_plata -> { showFragmentForecast(ciudadMarDelPlata) }
-            R.id.toolbar_cordoba -> { showFragmentForecast(ciudadCordoba) }
-            R.id.toolbar_nuequen -> { showFragmentForecast(ciudadNeuquen) }
-            R.id.toolbar_parana -> { showFragmentForecast(ciudadParana) }
-            R.id.toolbar_santa_fe -> { showFragmentForecast(ciudadSantaFe) }
+            R.id.toolbar_caba -> {
+                showFragmentForecast(ciudadBuenosAires)
+                supportActionBar?.title = "Buenos Aires"
+            }
+
+            R.id.toolbar_mar_del_plata -> {
+                showFragmentForecast(ciudadMarDelPlata)
+                supportActionBar?.title = "Mar del Plata"
+            }
+
+            R.id.toolbar_cordoba -> {
+                showFragmentForecast(ciudadCordoba)
+                supportActionBar?.title = "Cordoba"
+            }
+
+            R.id.toolbar_nuequen -> {
+                showFragmentForecast(ciudadNeuquen)
+                supportActionBar?.title = "Nuequen"
+            }
+
+            R.id.toolbar_parana -> {
+                showFragmentForecast(ciudadParana)
+                supportActionBar?.title = "Paraná"
+            }
+
+            R.id.toolbar_santa_fe -> {
+                showFragmentForecast(ciudadSantaFe)
+                supportActionBar?.title = "Santa Fe"
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    /*
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.toolbar_caba -> {
-            showFragmentForecast(ciudadBuenosAires)
-            true
-        }
-
-        R.id.toolbar_mar_del_plata -> {
-            showFragmentForecast(ciudadMarDelPlata)
-            true
-        }
-        else -> {
-            // If we got here, the user's action was not recognized.
-            // Invoke the superclass to handle it.
-            super.onOptionsItemSelected(item)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val supportFragmentManager = this.supportFragmentManager
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            finish()
         }
     }
 
-     */
+
 
 
 }
