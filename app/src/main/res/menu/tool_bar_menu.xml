@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/toolbar_caba"
+        android:title="@string/caba"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/toolbar_mar_del_plata"
+        android:title="@string/mar_del_plata"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/toolbar_santa_fe"
+        android:title="@string/santa_fe"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/toolbar_cordoba"
+        android:title="@string/cordoba"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/toolbar_nuequen"
+        android:title="@string/neuquen"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/toolbar_parana"
+        android:title="@string/paran"
+        app:showAsAction="never"/>
+
+</menu>

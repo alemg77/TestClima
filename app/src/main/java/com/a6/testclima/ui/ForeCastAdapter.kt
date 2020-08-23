@@ -1,6 +1,5 @@
 package com.a6.testclima.ui
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +7,6 @@ import com.a6.testclima.R
 import com.a6.testclima.databinding.CeldaForecastBinding
 import com.a6.testclima.datos.model.forecast.ForecastElement
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
 
 class ForeCastAdapter : RecyclerView.Adapter<ForeCastAdapter.PostsViewHolder>() {
 

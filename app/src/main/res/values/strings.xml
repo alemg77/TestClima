@@ -2,4 +2,12 @@
     <string name="app_name">TestClima</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mar_del_plata">Mar del Plata</string>
+    <string name="caba">CABA</string>
+    <string name="abrir_menu">\"abrir menu\"</string>
+    <string name="cerrar_menu">cerrar menu</string>
+    <string name="santa_fe">Santa FE</string>
+    <string name="cordoba">Cordoba</string>
+    <string name="neuquen">Neuquen</string>
+    <string name="paran">Paraná</string>
 </resources>

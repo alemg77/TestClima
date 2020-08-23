@@ -2,6 +2,8 @@ package com.a6.testclima
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.a6.testclima.databinding.ActivityMainBinding
 import com.a6.testclima.ui.FragmentForeCast
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        setSupportActionBar(findViewById(R.id.MainActivityToolbar))
+
         Log.d(TAG, "Inicio del programa")
 
         if (ConnectivityStatus(this)) {
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showFragmentForecast ( city: String ){
+    private fun showFragmentForecast(city: String) {
         val bundle = Bundle()
         bundle.putSerializable(FragmentForeCast.KEY_CITY, city)
         val newFragment = FragmentForeCast()
@@ -46,6 +50,45 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.tool_bar_menu, menu);
+        return true;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.toolbar_caba -> { showFragmentForecast(ciudadBuenosAires) }
+            R.id.toolbar_mar_del_plata -> { showFragmentForecast(ciudadMarDelPlata) }
+            R.id.toolbar_cordoba -> { showFragmentForecast(ciudadCordoba) }
+            R.id.toolbar_nuequen -> { showFragmentForecast(ciudadNeuquen) }
+            R.id.toolbar_parana -> { showFragmentForecast(ciudadParana) }
+            R.id.toolbar_santa_fe -> { showFragmentForecast(ciudadSantaFe) }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    /*
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.toolbar_caba -> {
+            showFragmentForecast(ciudadBuenosAires)
+            true
+        }
+
+        R.id.toolbar_mar_del_plata -> {
+            showFragmentForecast(ciudadMarDelPlata)
+            true
+        }
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+     */
 
 
 }
