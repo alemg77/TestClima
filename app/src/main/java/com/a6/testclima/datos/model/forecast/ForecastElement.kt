@@ -2,11 +2,11 @@ package com.a6.testclima.datos.model.forecast
 
 import com.google.gson.annotations.SerializedName
 
-data class ForecastList (
+data class ForecastElement (
     @SerializedName("clouds")
-    val forecastClouds: Clouds,
+    val Clouds: Clouds,
     @SerializedName("dt")
-    val forecastDt: Int,
+    val dt: Int,
     @SerializedName("dt_txt")
     val forecastDtTxt: String,
     @SerializedName("sys")
@@ -16,5 +16,5 @@ data class ForecastList (
     @SerializedName("visibility")
     val forecastVisibility: Int,
     @SerializedName("weather")
-    val forecastWeather: List<Weather>,
+    val Weather: List<Weather>,
 )

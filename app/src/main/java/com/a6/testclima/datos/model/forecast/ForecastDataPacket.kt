@@ -13,5 +13,5 @@ data class ForecastDataPacket(
     @SerializedName("message")
     val forecastMessage: Int,
     @SerializedName("list")
-    val forecastList: List<ForecastList>,
+    val listForeCast: List<ForecastElement>,
 )

@@ -1,14 +1,14 @@
 package com.a6.testclima.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.a6.testclima.ciudadMarDelPlata
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.a6.testclima.databinding.FragmentForeCastBinding
 import com.a6.testclima.datos.ForeCastViewModel
 import com.a6.testclima.datos.ForeCastViewModelFactory
@@ -21,7 +21,6 @@ class FragmentForeCast : Fragment() {
 
     lateinit var city: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -29,7 +28,11 @@ class FragmentForeCast : Fragment() {
         }
     }
 
-    override fun onCreateView( inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentForeCastBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -39,16 +42,20 @@ class FragmentForeCast : Fragment() {
 
         binding.nombreCiudad.text = city
 
+        val foreCastAdapter = ForeCastAdapter()
+
+        binding.RecyclerViewForecast.layoutManager = LinearLayoutManager(context)
+        binding.RecyclerViewForecast.adapter = foreCastAdapter
+
         val foreCastViewModelFactory = ForeCastViewModelFactory(city)
         val foreCastViewModel: ForeCastViewModel by viewModels() { foreCastViewModelFactory }
 
         foreCastViewModel.datos().observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, it.toString())
-            Log.d(TAG, "Que paso?")
+            foreCastAdapter.listForeCast = it.listForeCast
+            foreCastAdapter.notifyDataSetChanged()
         })
         return view
     }
-
 
     companion object {
         val KEY_CITY = "NOMBRE DE LA CIUDAD"
