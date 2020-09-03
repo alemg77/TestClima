@@ -36,8 +36,6 @@ class FragmentForeCast : Fragment() {
         _binding = FragmentForeCastBinding.inflate(inflater, container, false)
         val view = binding.root
 
-
-
         // Busco el nombre de la ciudad que me pasaron
         val bundle = arguments
         val city: String = bundle!!.getSerializable(KEY_CITY) as String
